@@ -1,0 +1,133 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Travel(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+class Travel extends StatefulWidget {
+  @override
+  State<Travel> createState() => _Planner();
+}
+class _Planner extends State<Travel> {
+  TextEditingController myController = TextEditingController();
+
+  String? mode; // For radio buttons
+  bool passport = false;
+  bool clothes = false;
+  bool charger = false;
+  bool needHotel = false;
+ @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Travel Planner")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextField(
+                controller: myController,
+                decoration: InputDecoration(
+                  labelText: "Enter City",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text("Select mode of Transport:",style:TextStyle(fontSize:20,color:Colors.black)),
+              RadioListTile<String>(
+                title:Text("Flight",style:TextStyle(fontSize:20,color:Colors.blue)),
+                value: "Flight",
+                groupValue: mode,
+                onChanged: (value) {
+                  setState(() {
+                    mode = value;
+                  });
+                },
+              ),
+              RadioListTile<String>(
+    
+                title: Text("Bus",style:TextStyle(fontSize:20,color:Colors.blue)),
+                value: "Bus",
+                groupValue: mode,
+                onChanged: (value) {
+                  setState(() {
+                    mode = value;
+                  });
+                },
+              ),
+              RadioListTile<String>(
+                title: Text("Car",style:TextStyle(fontSize:20,color:Colors.blue)),
+                value: "Car",
+                groupValue: mode,
+                onChanged: (value) {
+                  setState(() {
+                    mode = value;
+                  });
+                },
+              ),
+              SizedBox(height: 20),
+              Text("Packing List:",style:TextStyle(fontSize:20,color:Colors.black)),
+              CheckboxListTile(
+                title: Text("Passport",style:TextStyle(fontSize:20,color:Colors.blue)),
+                value: passport,
+                onChanged: (value) {
+                  setState(() {
+                    passport = value!;
+                  });
+                },
+              ),
+              CheckboxListTile(
+                title: Text("Clothes",style:TextStyle(fontSize:20,color:Colors.blue)),
+                value: clothes,
+                onChanged: (value) {
+                  setState(() {
+                    clothes = value!;
+                  });
+                },
+              ),
+              CheckboxListTile(
+                title: Text("Charger",style:TextStyle(fontSize:20,color:Colors.blue)),
+                value: charger,
+                onChanged: (value) {
+                  setState(() {
+                    charger = value!;
+                  });
+                },
+              ),
+              SizedBox(height: 20),
+              SwitchListTile(
+                title: Text("Need hotel booking?",style:TextStyle(fontSize:20,color:Colors.black)),
+                value: needHotel,
+                onChanged: (value) {
+                  setState(() {
+                    needHotel = value;
+                  });
+                },
+              ),
+              SizedBox(height: 20),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    print("Trip planned successfully!");
+                    print("City: ${myController.text}");
+                    print("Transport: $mode");
+                    print("Packing: Passport($passport), Clothes($clothes), Charger($charger)");
+                    print("Hotel needed: $needHotel");
+                  },
+                  child: Text("Submit"),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
